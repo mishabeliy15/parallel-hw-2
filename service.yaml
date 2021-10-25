@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: hw2
+spec:
+  type: LoadBalancer
+  selector:
+    app: hw2
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: web

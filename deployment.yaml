@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hw2
+spec:
+  selector:
+    matchLabels:
+      app: hw2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hw2
+    spec:
+      containers:
+      - name: hw2
+        imagePullPolicy: Never
+        image: mishabeliy15/hw2
+        ports:
+          - name: web
+            hostPort: 5000
+            containerPort: 5000
+            protocol: TCP
+        resources:
+          limits:
+            cpu: "2"
+            memory: 512Mi
+        readinessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /
+            port: 5000
+          initialDelaySeconds: 15
+          periodSeconds: 10
